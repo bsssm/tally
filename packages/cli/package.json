@@ -5,7 +5,7 @@
   "description": "Your AI wallet: Claude Code usage priced at API rates, connected provider spend, a plan verdict and a deal feed. Read-only, local, no account.",
   "license": "MIT",
   "author": "Bassam Elshorafa",
-  "homepage": "https://github.com/bsssm/tally#readme",
+  "homepage": "https://tally-ai-wallet.netlify.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bsssm/tally.git",
