@@ -8,6 +8,7 @@ import { deals } from "./commands/deals.js";
 import { profile } from "./commands/profile.js";
 import { routeCommand } from "./commands/route.js";
 import { pace } from "./commands/pace.js";
+import { card } from "./commands/card.js";
 import { VERSION } from "./version.js";
 
 const program = new Command();
@@ -68,6 +69,19 @@ program
   .option("--json")
   .description("Claude Code 5-hour window gauge: burn in API dollars and % of the window; install writes the status line + hook, never over an existing one")
   .action((action: string | undefined, opts) => pace(action, opts));
+
+program
+  .command("card")
+  .option("-d, --days <n>", "window in days", (v) => Number(v), 30)
+  .option("--square", "1080x1080 instead of 1200x675")
+  .option("--dark", "dark variant")
+  .option("--out <path>", "where to write the SVG (default ~/.tally/cards/tally-YYYY-MM.svg)")
+  .option("--png", "also write a PNG next to it (rsvg-convert, Chrome or sips, whichever is installed)")
+  .option("--open", "open the file when written")
+  .option("--redact-models", "show vendor families instead of model names")
+  .option("--plan <plan>", "api | pro | max5 | max20 (overrides profile)")
+  .description("monthly share card of your wallet as an SVG (or PNG): totals and model names only, nothing private")
+  .action((opts) => card(opts));
 
 program.parseAsync(process.argv).catch((e: unknown) => {
   console.error(e instanceof Error ? e.message : String(e));

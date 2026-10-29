@@ -15,3 +15,4 @@ export * from "./profile.js";
 export * from "./deals/index.js";
 export * from "./credits.js";
 export * from "./local/index.js";
+export * from "./card.js";

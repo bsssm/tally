@@ -1,10 +1,6 @@
-import { defaultWindow, isoDate, listProviders, summarizeByProvider, summarizeClaudeCode, summarizeLocalAgents, replaceUsageEvents, verdict, getProfile, loadDeals, catalogDeals, rankDeals, summarizeByModel, type PlanId, type LocalAgentSummary } from "@tally/core";
-import { ctx } from "../context.js";
-import { bold, dim, int, money, ok, table, warn, err } from "../ui.js";
-
-const LABEL: Record<LocalAgentSummary["source"], string> = { "claude-code": "Claude Code (local logs)", codex: "Codex CLI (local logs)", cursor: "Cursor (local db)", gemini: "Gemini CLI (local logs)" };
-const VENDOR: Record<LocalAgentSummary["source"], string> = { "claude-code": "anthropic", codex: "openai", cursor: "cursor", gemini: "google" };
-const LOCAL = new Set<string>(["claude-code", "codex", "cursor", "gemini"]);
+import { rankDeals, type PlanId, type LocalAgentSummary } from "@tally/core";
+import { gatherWallet, LABEL } from "../wallet-data.js";
+import { bold, dim, int, money, ok, warn, err } from "../ui.js";
 
 export interface WalletOpts {
   days: number;
@@ -14,30 +10,7 @@ export interface WalletOpts {
 
 /** The first screen: what you used, what it is worth, what to do. No key needed. */
 export async function wallet(opts: WalletOpts): Promise<void> {
-  const { db } = await ctx();
-  const { from, to } = defaultWindow(opts.days);
-  const f = isoDate(from), t = isoDate(to);
-  const profile = getProfile(db);
-  const plan = (opts.plan ?? profile.plan ?? "api") as PlanId;
-
-  const cc = await summarizeClaudeCode(f, t);
-  if (cc.events.length) replaceUsageEvents(db, "claude-code", f, t, cc.events);
-  const local = await summarizeLocalAgents(f, t, { sources: ["codex", "cursor", "gemini"] });
-  for (const s of local.sources) if (s.events.length) replaceUsageEvents(db, s.source, f, t, s.events);
-  const v = verdict(cc, plan, { creditsClaimed: profile.creditsClaimed });
-
-  const byProvider = summarizeByProvider(db, f, t).filter((p) => !LOCAL.has(p.providerId));
-  const byModel = summarizeByModel(db, f, t, 200);
-  const models = new Set(byModel.map((m) => m.model));
-  const providers = new Set([
-    ...byProvider.map((p) => p.providerId),
-    ...(cc.turns ? ["claude-code", "anthropic"] : []),
-    ...local.sources.filter((s) => s.turns).flatMap((s) => [s.source, VENDOR[s.source]]),
-  ]);
-  const dctx = { profile: { ...profile, plan }, models, providers, today: t };
-  const deals = rankDeals([...loadDeals(), ...catalogDeals(db, dctx)], dctx).filter((d) => d.status !== "expired").slice(0, 6);
-  const connected = listProviders(db).length;
-  db.close();
+  const { from: f, to: t, plan, profile, cc, local, verdict: v, byProvider, deals, connected } = await gatherWallet({ days: opts.days, plan: opts.plan });
 
   if (!cc.turns && !local.turns && !byProvider.length && !opts.json) {
     emptyState(f, t, plan, profile.plan, deals, local.sources);
