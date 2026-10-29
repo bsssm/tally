@@ -14,10 +14,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         node: [20, 22]
-    env:
-      # Keep CI off the macOS Keychain; the keystore falls back to env / passphrase.
-      TALLY_KEY_SOURCE: passphrase
-      TALLY_PASSPHRASE: ci-only-passphrase
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
