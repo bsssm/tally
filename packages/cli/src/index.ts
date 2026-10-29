@@ -6,12 +6,15 @@ import { disconnect, providers } from "./commands/providers.js";
 import { wallet } from "./commands/wallet.js";
 import { deals } from "./commands/deals.js";
 import { profile } from "./commands/profile.js";
+import { routeCommand } from "./commands/route.js";
+import { pace } from "./commands/pace.js";
+import { VERSION } from "./version.js";
 
 const program = new Command();
 program
   .name("tally")
   .description("One ledger for your AI inference spend, plus the credits and cheaper routes you're not using. Read-only, local.")
-  .version("0.0.1");
+  .version(VERSION);
 
 program
   .command("wallet", { isDefault: true })
@@ -38,7 +41,7 @@ program
 
 program
   .command("connect")
-  .argument("<provider>", "openrouter (openai, anthropic … in M2)")
+  .argument("<provider>", "openrouter | anthropic | openai (anthropic --admin stores an Admin API key for reconciliation)")
   .option("--admin", "the key is an admin / management key")
   .option("--key <key>", "pass the key instead of being prompted (visible in shell history)")
   .option("--key-stdin", "read the key from stdin")
@@ -56,8 +59,19 @@ program
 
 program.command("providers").option("--json").description("list connected providers").action((opts) => providers(opts));
 program.command("disconnect").argument("<provider>").description("remove a provider and its rows").action((id: string) => disconnect(id));
+program.addCommand(routeCommand());
+
+program
+  .command("pace")
+  .argument("[action]", "status (default) | install | uninstall")
+  .option("--settings <path>", "settings.json to write (default ~/.claude/settings.json)")
+  .option("--json")
+  .description("Claude Code 5-hour window gauge: burn in API dollars and % of the window; install writes the status line + hook, never over an existing one")
+  .action((action: string | undefined, opts) => pace(action, opts));
 
 program.parseAsync(process.argv).catch((e: unknown) => {
   console.error(e instanceof Error ? e.message : String(e));
+  const hint = e && typeof e === "object" && "hint" in e ? (e as { hint?: string }).hint : undefined;
+  if (hint) console.error(hint);
   process.exit(1);
 });

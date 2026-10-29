@@ -1,5 +1,5 @@
 import {
-  defaultWindow, isoDate, listProviders, summarizeByModel, summarizeByProvider, syncProviders,
+  defaultWindow, getAdapter, isoDate, listProviders, summarizeByModel, summarizeByProvider, syncProviders,
 } from "@tally/core";
 import { ctx } from "../context.js";
 import { bold, dim, err, int, money, ok, table, tokens, warn } from "../ui.js";
@@ -12,14 +12,25 @@ export interface SyncOpts {
 }
 
 export async function sync(opts: SyncOpts): Promise<void> {
-  const { db, keystore } = await ctx();
-  if (listProviders(db).length === 0) {
+  const { db, keystore } = await ctx({ keys: "open" });
+  const stored = listProviders(db);
+  if (stored.length === 0) {
     console.error(warn("No providers connected. Start with: ") + bold("tally connect openrouter"));
     db.close();
     process.exit(1);
   }
+  // Keys stored for the credits router (anthropic, anthropic-admin, openai …) have no usage adapter yet.
+  const syncable = stored.filter((p) => getAdapter(p.id)).map((p) => p.id);
+  const routerOnly = stored.filter((p) => !getAdapter(p.id)).map((p) => p.id);
+  const only = opts.only ? opts.only.filter((id) => syncable.includes(id)) : syncable;
+  if (routerOnly.length && !opts.json) console.log(dim(`skipped ${routerOnly.join(", ")}: key is used by the credits router; no usage sync for it yet`));
+  if (!only.length) {
+    console.error(warn("Nothing to sync. ") + dim(`Providers with a usage adapter: ${syncable.join(", ") || "none"}`));
+    db.close();
+    process.exit(1);
+  }
   const { from, to } = defaultWindow(opts.days);
-  const reports = await syncProviders(db, keystore, { from, to, only: opts.only, prices: opts.prices });
+  const reports = await syncProviders(db, keystore, { from, to, only, prices: opts.prices });
   const byProvider = summarizeByProvider(db, isoDate(from), isoDate(to));
   const byModel = summarizeByModel(db, isoDate(from), isoDate(to), 15);
   db.close();

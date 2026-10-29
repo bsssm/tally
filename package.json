@@ -2,20 +2,25 @@
   "name": "tally-monorepo",
   "private": true,
   "version": "0.0.1",
-  "description": "Tally — one ledger for AI inference spend across providers, plus the credits and cheaper routes you're not using.",
+  "description": "Tally \u2014 one ledger for AI inference spend across providers, plus the credits and cheaper routes you're not using.",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "packageManager": "pnpm@9.15.9",
   "scripts": {
     "build": "pnpm -r --filter ./packages/core --filter ./packages/cli build",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "pnpm -r typecheck",
-    "tally": "node packages/cli/dist/index.js"
+    "tally": "node packages/cli/dist/bin/index.js",
+    "fresh-machine": "bash scripts/fresh-machine.sh",
+    "sweep": "node scripts/sweep.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.17.0",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
-  }
+  },
+  "license": "MIT"
 }

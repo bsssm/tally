@@ -1,23 +1,65 @@
 {
-  "name": "tally",
-  "version": "0.0.1",
-  "private": true,
+  "name": "tallyai",
+  "version": "0.1.0",
   "type": "module",
-  "description": "Honey for AI inference: one ledger for LLM spend, plus the credits and cheaper routes you're not using.",
-  "bin": { "tally": "./dist/index.js" },
+  "description": "Your AI wallet: Claude Code usage priced at API rates, connected provider spend, a plan verdict and a deal feed. Read-only, local, no account.",
+  "license": "MIT",
+  "author": "Bassam Elshorafa",
+  "homepage": "https://github.com/bsssm/tally#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsssm/tally.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/bsssm/tally/issues"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "claude",
+    "claude-code",
+    "openrouter",
+    "anthropic",
+    "spend",
+    "usage",
+    "cost",
+    "wallet",
+    "cli",
+    "credits",
+    "inference"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "tallyai": "dist/bin/index.js",
+    "tally": "dist/bin/index.js"
+  },
+  "files": [
+    "dist/bin",
+    "data",
+    "plugin",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
+    "build": "tsup && node scripts/copy-data.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "dev": "tsx src/index.ts"
+    "dev": "tsx src/index.ts",
+    "prepack": "node scripts/prepack.mjs"
   },
   "dependencies": {
     "@clack/prompts": "^0.9.0",
-    "@tally/core": "workspace:*",
+    "better-sqlite3": "^11.5.0",
     "cli-table3": "^0.6.5",
     "commander": "^12.1.0",
     "picocolors": "^1.1.1"
   },
   "devDependencies": {
+    "@tally/core": "workspace:*",
+    "@tally/router": "workspace:*",
+    "tsup": "^9.0.0",
     "tsx": "^4.19.0"
   }
 }

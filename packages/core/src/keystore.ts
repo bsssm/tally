@@ -105,14 +105,38 @@ export interface OpenKeystoreOptions {
   /** Asked only when the passphrase fallback is in use. */
   askPassphrase?: () => Promise<string>;
   sources?: MasterKeySource[];
+  /**
+   * Create a master key when none exists yet (default true). Pass false from commands that only
+   * read stored keys: they then fail fast with `no-master-key` instead of touching the Keychain
+   * or asking for a passphrase on a machine where nothing has ever been connected.
+   */
+  create?: boolean;
+}
+
+function verifierFile(): string {
+  return join(tallyHome(), "keycheck");
 }
 
 /**
- * Resolve the master key, creating one on first run, and verify it against ~/.tally/keycheck.
+ * True once a master key has been set up for this TALLY_HOME (or one is supplied by the env).
+ * Cheap: a file stat, no Keychain call, no prompt. The wallet and other read-only commands never
+ * go further than this, so a stranger's first `tally` run cannot trigger a Keychain or passphrase prompt.
+ */
+export function masterKeyExists(): boolean {
+  return Boolean(process.env.TALLY_MASTER_KEY) || existsSync(verifierFile());
+}
+
+/**
+ * Resolve the master key and verify it against ~/.tally/keycheck. The key is created lazily:
+ * only when `create` is true (the default, used by `tally connect`) and nothing exists yet.
  */
 export async function openKeystore(opts: OpenKeystoreOptions = {}): Promise<Keystore> {
+  const create = opts.create ?? true;
+  if (!create && !masterKeyExists()) {
+    throw new TallyError("no-master-key", "No provider keys are stored yet", "Run: tally connect openrouter");
+  }
   const sources = opts.sources ?? defaultSources(opts.askPassphrase);
-  const verifierPath = join(tallyHome(), "keycheck");
+  const verifierPath = verifierFile();
 
   for (const src of sources) {
     const key = await src.get();
@@ -137,7 +161,20 @@ export async function openKeystore(opts: OpenKeystoreOptions = {}): Promise<Keys
   throw new TallyError("no-key-source", "No place to keep the master key", "Set TALLY_MASTER_KEY or run interactively to use a passphrase");
 }
 
+/**
+ * env → macOS Keychain → passphrase. `TALLY_KEY_SOURCE=passphrase` (or `keychain`) pins one source,
+ * which is how the passphrase path is exercised on a Mac and how CI stays off the Keychain.
+ */
 function defaultSources(askPassphrase?: () => Promise<string>): MasterKeySource[] {
+  const forced = process.env.TALLY_KEY_SOURCE;
+  if (forced === "passphrase") {
+    if (!askPassphrase) throw new TallyError("no-key-source", "TALLY_KEY_SOURCE=passphrase needs a passphrase prompt or TALLY_PASSPHRASE");
+    return [new PassphraseKeySource(askPassphrase)];
+  }
+  if (forced === "keychain") {
+    if (!MacKeychainSource.available()) throw new TallyError("no-key-source", "TALLY_KEY_SOURCE=keychain only works on macOS");
+    return [new MacKeychainSource()];
+  }
   const list: MasterKeySource[] = [new EnvKeySource()];
   if (MacKeychainSource.available()) list.push(new MacKeychainSource());
   if (askPassphrase) list.push(new PassphraseKeySource(askPassphrase));
