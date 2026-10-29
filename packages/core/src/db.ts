@@ -219,7 +219,7 @@ export function replaceUsageEvents(db: Db, providerId: string, from: string, to:
   })();
 }
 
-export function upsertPrices(db: Db, rows: PriceRow[]): number {
+export function upsertPrices(db: Db, rows: PriceRow[], seenAt?: string): number {
   const ins = db.prepare(
     `INSERT INTO price_catalog (provider_id, model, input_per_m, output_per_m, cached_per_m, is_free, updated_at, source)
      VALUES (@provider_id, @model, @input_per_m, @output_per_m, @cached_per_m, @is_free, @updated_at, @source)
@@ -231,7 +231,10 @@ export function upsertPrices(db: Db, rows: PriceRow[]): number {
   const hist = db.prepare(
     `INSERT OR IGNORE INTO price_history (provider_id, model, input_per_m, output_per_m, is_free, seen_at) VALUES (?, ?, ?, ?, ?, ?)`,
   );
-  const now = new Date().toISOString();
+  // seen_at is part of the history primary key, so two syncs inside one millisecond must not collide.
+  const latest = db.prepare("SELECT MAX(seen_at) AS m FROM price_history").get() as { m: string | null };
+  let now = seenAt ?? new Date().toISOString();
+  if (latest.m && now <= latest.m) now = new Date(Date.parse(latest.m) + 1).toISOString();
   return db.transaction(() => {
     for (const r of rows) {
       const prev = last.get(r.providerId, r.model) as { input_per_m: number; output_per_m: number; is_free: number } | undefined;
