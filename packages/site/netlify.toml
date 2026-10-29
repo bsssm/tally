@@ -1,0 +1,3 @@
+# Netlify: draft deploys only from this folder
+[build]
+  publish = "."

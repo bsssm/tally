@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>Tally OG image</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { color-scheme: light; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--bg); }
+  .og { position: relative; width: 1200px; height: 630px; display: grid; grid-template-columns: 1fr 560px 1fr; column-gap: 24px; align-items: center; padding: 0 48px; }
+  .og__mark { position: absolute; top: 40px; left: 48px; font-weight: 600; font-size: 28px; letter-spacing: -0.03em; }
+  .og__cmd { position: absolute; bottom: 44px; left: 48px; font-size: 24px; color: var(--muted); }
+  .og__h { font-size: 56px; line-height: 0.95; letter-spacing: -0.03em; font-weight: 500; margin: 0; }
+  .og__h span { display: block; }
+  .og__b { text-align: right; }
+  .og .term { font-size: 17px; padding: 28px; }
+</style>
+</head>
+<body>
+<div class="og">
+  <div class="og__mark">tally</div>
+  <h1 class="og__h"><span>See what your</span></h1>
+  <figure data-ui>
+<pre class="term"><span class="dim">$ </span>npx tallyai
+
+<b>YOUR AI WALLET</b>
+  Claude Code (local logs)  <b>$1,600.59</b> API-equiv.
+    claude-fable-5-1        $1,150.08   72%
+    claude-opus-5-5           $316.23   20%
+    claude-opus-4-8           $130.74    8%
+
+<b>VERDICT</b>  <span class="dim">(Claude Max 20x)</span>
+  $1601 on a $200 plan: 8.0x. <span class="ok">Keep it.</span></pre>
+  </figure>
+  <p class="og__h og__b"><span>plan is worth.</span></p>
+  <div class="og__cmd">Read-only, local, no account. MIT.</div>
+</div>
+</body>
+</html>
