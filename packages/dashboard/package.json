@@ -1,0 +1,6 @@
+{
+  "name": "@tally/dashboard",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Placeholder until M4 (Vite + React + Tailwind, served by Fastify on 127.0.0.1:4477)."
+}
