@@ -1,0 +1,9 @@
+{"sessionId":"sess-g","projectHash":"hash1","startTime":"2026-10-05T10:00:00.000Z","lastUpdated":"2026-10-05T10:05:00.000Z","kind":"main","directories":["/tmp/p"]}
+{"id":"u1","timestamp":"2026-10-05T10:00:01.000Z","type":"user","content":[{"text":"hi"}]}
+{"id":"g1","timestamp":"2026-10-05T10:00:05.000Z","type":"gemini","content":"hello","model":"gemini-2.5-pro","tokens":{"input":5000,"output":300,"cached":2000,"thoughts":100,"tool":50,"total":5450}}
+{"$set":{"lastUpdated":"2026-10-05T10:00:06.000Z"}}
+{"id":"g1","timestamp":"2026-10-05T10:00:05.000Z","type":"gemini","content":"hello there","model":"gemini-2.5-pro","tokens":{"input":5000,"output":600,"cached":2000,"thoughts":100,"tool":50,"total":5750}}
+{"$patch":{"id":"g1","content":"hello there!"}}
+garbage line
+{"id":"g2","timestamp":"2026-10-05T10:02:00.000Z","type":"gemini","content":"long","model":"gemini-3.1-pro-preview","tokens":{"input":250000,"output":1000,"cached":0,"thoughts":0,"tool":0,"total":251000}}
+{"id":"g3","timestamp":"2026-10-05T10:03:00.000Z","type":"gemini","content":"","model":"gemini-2.5-pro","tokens":{"input":0,"output":0,"cached":0,"thoughts":0,"tool":0,"total":0}}

@@ -1,0 +1,11 @@
+[
+  {"key":"composerData:c1","value":{"composerId":"c1","createdAt":1791196800000,"modelConfig":{"modelName":"auto"},"fullConversationHeadersOnly":[{"bubbleId":"b1","type":1},{"bubbleId":"b2","type":2}]}},
+  {"key":"composerData:c2","value":{"composerId":"c2","createdAt":1788256800000,"fullConversationHeadersOnly":[]}},
+  {"key":"bubbleId:c1:b1","value":{"bubbleId":"b1","type":1,"createdAt":"2026-10-05T10:40:00.000Z","text":"hi","tokenCount":{"inputTokens":0,"outputTokens":0}}},
+  {"key":"bubbleId:c1:b2","value":{"bubbleId":"b2","type":2,"createdAt":"2026-10-05T10:41:00.000Z","text":"hello","modelInfo":{"modelName":"claude-4.5-sonnet-thinking"},"tokenCount":{"inputTokens":0,"outputTokens":0}}},
+  {"key":"bubbleId:c1:b3","value":{"bubbleId":"b3","type":2,"createdAt":"2026-10-05T10:42:00.000Z","text":"more","modelInfo":{"modelName":"gpt-5"},"tokenCount":{"inputTokens":1000,"outputTokens":100}}},
+  {"key":"bubbleId:c1:b4","value":{"bubbleId":"b4","type":2,"createdAt":"2026-10-05T10:43:00.000Z","text":"anthropic","modelInfo":{"modelName":"claude-4.5-sonnet-thinking"},"tokenCount":{"inputTokens":1000,"outputTokens":100}}},
+  {"key":"bubbleId:c1:b5","value":{"bubbleId":"b5","type":2,"createdAt":"2026-09-01T10:43:00.000Z","text":"old","modelInfo":{"modelName":"gpt-5"},"tokenCount":{"inputTokens":999999,"outputTokens":999999}}},
+  {"key":"bubbleId:c1:b6","value":"{not json"},
+  {"key":"agentKv:blob:zzz","value":{"role":"assistant","content":"ignored"}}
+]

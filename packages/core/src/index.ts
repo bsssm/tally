@@ -13,3 +13,5 @@ export * from "./local/claude-code.js";
 export * from "./wallet.js";
 export * from "./profile.js";
 export * from "./deals/index.js";
+export * from "./credits.js";
+export * from "./local/index.js";
