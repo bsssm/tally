@@ -1,5 +1,5 @@
 {
-  "name": "tallyai",
+  "name": "tallywallet",
   "version": "0.1.0",
   "type": "module",
   "description": "Your AI wallet: Claude Code usage priced at API rates, connected provider spend, a plan verdict and a deal feed. Read-only, local, no account.",
@@ -33,7 +33,7 @@
     "node": ">=20"
   },
   "bin": {
-    "tallyai": "dist/bin/index.js",
+    "tallywallet": "dist/bin/index.js",
     "tally": "dist/bin/index.js"
   },
   "files": [

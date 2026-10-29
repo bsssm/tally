@@ -8,7 +8,7 @@ interface fragments "Achromatic ledger" (seed 435191889) at `.taste-skill/app/`.
 
 ## The subject (inventory, what only Tally has)
 
-1. `npx tallyai`, no key, no account; the first screen comes from files already on disk.
+1. `npx tallywallet`, no key, no account; the first screen comes from files already on disk.
 2. `~/.claude/projects/**/*.jsonl`: Claude Code's own session logs, one turn per line.
 3. A real 30-day run (29 Oct 2026): $1,601 API-equivalent on a $200 Max 20x plan, 8.0x.
 4. 72% of that run on claude-fable-5-1; cache hit rate shown per model.

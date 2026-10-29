@@ -5,7 +5,7 @@ Your AI wallet. One screen that prices your local Claude Code usage at API rates
 ## Quickstart
 
 ```sh
-npx tallyai
+npx tallywallet
 ```
 
 That is the whole install. Node 20 or newer. No key, no sign-up. On a machine with Claude Code logs the first screen looks like this (sample numbers):
@@ -38,7 +38,7 @@ tally connect openrouter        # add API spend (key stays on this machine, encr
 tally profile --plan max20      # tell the verdict how you pay Anthropic
 ```
 
-The package installs two commands, `tallyai` and `tally`. They are the same binary.
+The package installs two commands, `tallywallet` and `tally`. They are the same binary.
 
 ## What it reads, and what never leaves your machine
 
@@ -121,7 +121,7 @@ Entries that carry data-use terms (for example free tiers that may train on prom
 
 ## Development
 
-pnpm monorepo. `packages/core` holds the schema, crypto, keystore, adapters, local log readers and the deals engine. `packages/router` is the credits router and `packages/claude-code-plugin` the Claude Code plugin. `packages/cli` is the published `tallyai` package: tsup bundles core and router into one file at `dist/bin/index.js`; `data/` and the plugin's `scripts/*.cjs` are copied in at build time. `better-sqlite3` stays a native runtime dependency.
+pnpm monorepo. `packages/core` holds the schema, crypto, keystore, adapters, local log readers and the deals engine. `packages/router` is the credits router and `packages/claude-code-plugin` the Claude Code plugin. `packages/cli` is the published `tallywallet` package: tsup bundles core and router into one file at `dist/bin/index.js`; `data/` and the plugin's `scripts/*.cjs` are copied in at build time. `better-sqlite3` stays a native runtime dependency.
 
 ```sh
 pnpm install

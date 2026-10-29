@@ -45,7 +45,7 @@ describe("renderCard", () => {
     expect(svg).toContain(">1,403 · 7,975<");
     expect(svg).toContain("SESSIONS · TURNS");
     expect(svg).toContain("Keep it.");
-    expect(svg).toContain("npx tallyai");
+    expect(svg).toContain("npx tallywallet");
     expect(svg).toContain("October 2026");
   });
 
@@ -61,7 +61,7 @@ describe("renderCard", () => {
     expect(svg).not.toContain("CACHE HIT");
     expect(svg).not.toContain("AGENT");
     expect(svg).not.toContain("<rect x=\"330\"");
-    expect(svg).toContain("npx tallyai");
+    expect(svg).toContain("npx tallywallet");
     expect(svg).toContain("October 2026");
     expect(svg).toContain("29 Sep → 29 Oct");
     const noPlan = renderCard({ ...full, plan: undefined, verdict: undefined });

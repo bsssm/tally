@@ -25,5 +25,5 @@ jobs:
       - run: pnpm build
       - run: pnpm typecheck
       - run: pnpm test
-      - name: fresh-machine (npx tallyai from a packed tarball, no key, under 60s)
+      - name: fresh-machine (npx tallywallet from a packed tarball, no key, under 60s)
         run: bash scripts/fresh-machine.sh

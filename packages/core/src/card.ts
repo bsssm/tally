@@ -223,7 +223,7 @@ export function renderCard(data: CardData, opts: CardOptions = {}): string {
   // Footer.
   out.push(`<line x1="${g.pad}" y1="${g.ruleY}" x2="${right}" y2="${g.ruleY}" stroke="${c.rule}" stroke-width="1"/>`);
   out.push(
-    `<text x="${g.pad}" y="${g.footerY}" font-family="${MONO}" font-size="22" fill="${c.ink}"><tspan fill="${c.muted}">$ </tspan><tspan fill="${c.accent}" font-weight="700">npx tallyai</tspan></text>`,
+    `<text x="${g.pad}" y="${g.footerY}" font-family="${MONO}" font-size="22" fill="${c.ink}"><tspan fill="${c.muted}">$ </tspan><tspan fill="${c.accent}" font-weight="700">npx tallywallet</tspan></text>`,
   );
   text(right, g.footerY, month, { size: 18, mono: true, fill: c.muted, anchor: "end" });
   out.push(`</svg>`);

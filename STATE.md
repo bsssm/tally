@@ -6,7 +6,7 @@ Resume prompt (paste into Claude Code from any directory):
 
 ## What exists (main, pushed to the private repo github.com/bsssm/tally)
 
-- `npx tallyai` (package `tallyai` 0.1.0, not yet published): wallet screen from Claude Code, Codex CLI, Cursor and Gemini CLI local logs priced at API rates, OpenRouter ledger, plan verdict with levers, top deals. Clean empty state, no Keychain or passphrase prompt until the first `connect`.
+- `npx tallywallet` (package `tallywallet` 0.1.0, not yet published): wallet screen from Claude Code, Codex CLI, Cursor and Gemini CLI local logs priced at API rates, OpenRouter ledger, plan verdict with levers, top deals. Clean empty state, no Keychain or passphrase prompt until the first `connect`.
 - `tally deals [--all]`: 16 verified + 1 unconfirmed deals, expired ones with a missed line. Six Context.dev page monitors (`packages/core/data/monitors.json`, about 75 credits a month); `pnpm sweep` lists changes.
 - `tally route`: credits router on 127.0.0.1:7411 (`packages/router`). OpenAI and Anthropic shapes, streaming, pools (`route pool add anthropic --usd 200 --resets 7`), `route status`, `route jobs`. Reconciles from the Admin API when `tally connect anthropic --admin` is stored.
 - `tally pace [install|uninstall]`: Claude Code statusline + UserPromptSubmit hook (`packages/claude-code-plugin`), also installable as a plugin from the repo root marketplace. Rendered here: `tally 5h 64% $90.4 ↻1h24 · today $103`.
@@ -24,7 +24,7 @@ Resume prompt (paste into Claude Code from any directory):
 
 ## Waiting on Bassam (also Todoist, 30 Oct 10am)
 
-- [ ] Name: keep Tally / `tallyai`, or rename (9 live TALLY marks in USPTO classes 9 and 42; every tally domain taken; free: aiwallet.sh, tallied.dev, purse.dev $89).
+- [ ] Name: keep Tally / `tallywallet`, or rename (9 live TALLY marks in USPTO classes 9 and 42; every tally domain taken; free: aiwallet.sh, tallied.dev, purse.dev $89).
 - [ ] Enable 2FA on npm, then the publish goes through.
 - [ ] Anthropic API key + admin key → `tally connect anthropic` / `--admin`. Until then the router's credit path is untested with real credits.
 - [x] Downgrade to Max 5x stays (20 Nov). Flip `tally profile --plan max5` and the pool to $100 after that date.

@@ -302,7 +302,7 @@ function creditsCountdown(config, nowMs = Date.now(), cache) {
     if (mtime && cache?.credits && cache.credits.dbMtime === mtime) pool = cache.credits.pool;
     else if (mtime) {
       try {
-        // better-sqlite3 resolves from core in the monorepo, or from the tallyai package when shipped inside it.
+        // better-sqlite3 resolves from core in the monorepo, or from the tallywallet package when shipped inside it.
         let Database;
         for (const from of [resolve(PLUGIN_ROOT, "../core/package.json"), resolve(PLUGIN_ROOT, "../package.json")]) {
           try {

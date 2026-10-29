@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Fresh-machine acceptance test (SPEC §13): a stranger runs `npx tallyai` on a machine with no
+# Fresh-machine acceptance test (SPEC §13): a stranger runs `npx tallywallet` on a machine with no
 # Claude Code logs, no provider key and no Tally store, and gets the wallet's empty state in
 # under 60 seconds with exit 0 and no Keychain or passphrase prompt.
 #
@@ -41,10 +41,10 @@ env_args=(
 unset TALLY_MASTER_KEY TALLY_PASSPHRASE TALLY_KEY_SOURCE CLAUDE_CONFIG_DIR 2>/dev/null || true
 
 echo "tarball: $tgz_name ($(du -k "$tgz" | cut -f1) KB)"
-echo "running: npx --yes --package $tgz_name tallyai   (HOME=$fake_home)"
+echo "running: npx --yes --package $tgz_name tallywallet   (HOME=$fake_home)"
 start=$(date +%s)
 set +e
-out="$(cd "$work/run" && env "${env_args[@]}" npx --yes --package "$tgz" tallyai </dev/null 2>&1)"
+out="$(cd "$work/run" && env "${env_args[@]}" npx --yes --package "$tgz" tallywallet </dev/null 2>&1)"
 code=$?
 set -e
 elapsed=$(( $(date +%s) - start ))
