@@ -26,8 +26,9 @@ Resume prompt (paste into Claude Code from any directory):
 
 ## Next for Claude, in order
 
-- [ ] Landing page round 2 (phone overflow, reveal-on-scroll content, real router output) and a prod deploy once the name is settled.
-- [ ] Dashboard Tally tab (wallet, deals, router /status, pace) — in progress 29 Oct.
+- [x] Landing page rounds 1 and 2 (draft https://6ae384bc52fb657aecc0d6a2--tally-ai-wallet.netlify.app). Prod deploy once the name is settled.
+- [x] Dashboard Σ Tally tab (wallet, deals, router /status, pace), 29 Oct.
+- [ ] Launch drafts ready in `~/knowledge/personal/tally-launch-drafts.md` (X post + Show HN), unsent.
 - [ ] Announce: X post with the wallet screenshot, Show HN, ccusage comparison in the README.
 - [ ] M2 adapters: Anthropic + OpenAI usage sync (±1% check against their dashboards); `tally sync` currently skips those keys.
 - [ ] Credit-claiming agent (fills Anthropic / Google / AWS / Together / Cloudflare forms from the profile).
