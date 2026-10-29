@@ -9,3 +9,7 @@ export * from "./sync.js";
 export * from "./adapters/index.js";
 export { normalizeActivityRow, normalizeModelPrice } from "./adapters/openrouter.js";
 export type { OpenRouterActivityRow } from "./adapters/openrouter.js";
+export * from "./local/claude-code.js";
+export * from "./wallet.js";
+export * from "./profile.js";
+export * from "./deals/index.js";

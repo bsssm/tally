@@ -1,0 +1,27 @@
+{
+  "source": "Anthropic first-party API rates, from the claude-api skill table (cached 2026-09-25) and OpenRouter /models on 2026-10-29. USD per 1M tokens. cache_write_5m = 1.25x input, cache_write_1h = 2x input (Anthropic's standard multipliers).",
+  "updated_at": "2026-10-29",
+  "models": {
+    "claude-fable-5-1":  { "input": 10, "output": 50, "cache_read": 0.25, "cache_write_5m": 12.5, "cache_write_1h": 20 },
+    "claude-fable-5":    { "input": 10, "output": 50, "cache_read": 1.00, "cache_write_5m": 12.5, "cache_write_1h": 20 },
+    "claude-opus-5-5":   { "input": 4,  "output": 20, "cache_read": 0.20, "cache_write_5m": 5,    "cache_write_1h": 8 },
+    "claude-opus-5":     { "input": 5,  "output": 25, "cache_read": 0.50, "cache_write_5m": 6.25, "cache_write_1h": 10 },
+    "claude-opus-4-8":   { "input": 5,  "output": 25, "cache_read": 0.50, "cache_write_5m": 6.25, "cache_write_1h": 10 },
+    "claude-opus-4-7":   { "input": 5,  "output": 25, "cache_read": 0.50, "cache_write_5m": 6.25, "cache_write_1h": 10 },
+    "claude-opus-4-6":   { "input": 5,  "output": 25, "cache_read": 0.50, "cache_write_5m": 6.25, "cache_write_1h": 10 },
+    "claude-opus-4-5":   { "input": 5,  "output": 25, "cache_read": 0.50, "cache_write_5m": 6.25, "cache_write_1h": 10 },
+    "claude-sonnet-5-5": { "input": 2,  "output": 10, "cache_read": 0.10, "cache_write_5m": 2.5,  "cache_write_1h": 4 },
+    "claude-sonnet-5":   { "input": 2,  "output": 10, "cache_read": 0.20, "cache_write_5m": 2.5,  "cache_write_1h": 4 },
+    "claude-sonnet-4-6": { "input": 3,  "output": 15, "cache_read": 0.30, "cache_write_5m": 3.75, "cache_write_1h": 6 },
+    "claude-sonnet-4-5": { "input": 3,  "output": 15, "cache_read": 0.30, "cache_write_5m": 3.75, "cache_write_1h": 6 },
+    "claude-haiku-5-5":  { "input": 0.1, "output": 0.5, "cache_read": 0.01, "cache_write_5m": 0.125, "cache_write_1h": 0.2 },
+    "claude-haiku-4-5":  { "input": 1,  "output": 5,  "cache_read": 0.10, "cache_write_5m": 1.25, "cache_write_1h": 2 }
+  },
+  "plans": {
+    "api":   { "label": "API (pay per token)", "monthly_usd": 0, "api_credits_usd": 0 },
+    "pro":   { "label": "Claude Pro",          "monthly_usd": 20,  "api_credits_usd": 0 },
+    "max5":  { "label": "Claude Max 5x",       "monthly_usd": 100, "api_credits_usd": 100 },
+    "max20": { "label": "Claude Max 20x",      "monthly_usd": 200, "api_credits_usd": 200 }
+  },
+  "plan_credits_note": "Since 7 Oct 2026 Max plans include monthly Claude Platform API credits ($100 on 5x, $200 on 20x). Claimed once in claude.ai by linking a Console org after 7 days on the plan; no rollover; not usable for interactive Claude Code."
+}

@@ -78,6 +78,15 @@ CREATE TABLE IF NOT EXISTS sync_runs (
   rows INTEGER NOT NULL DEFAULT 0,
   error TEXT
 );
+CREATE TABLE IF NOT EXISTS price_history (
+  provider_id TEXT NOT NULL,
+  model TEXT NOT NULL,
+  input_per_m REAL NOT NULL,
+  output_per_m REAL NOT NULL,
+  is_free INTEGER NOT NULL DEFAULT 0,
+  seen_at TEXT NOT NULL,
+  PRIMARY KEY (provider_id, model, seen_at)
+);
 CREATE TABLE IF NOT EXISTS profile (
   key TEXT PRIMARY KEY,
   value JSON
@@ -188,8 +197,17 @@ export function upsertPrices(db: Db, rows: PriceRow[]): number {
        input_per_m = excluded.input_per_m, output_per_m = excluded.output_per_m, cached_per_m = excluded.cached_per_m,
        is_free = excluded.is_free, updated_at = excluded.updated_at, source = excluded.source`,
   );
+  const last = db.prepare("SELECT input_per_m, output_per_m, is_free FROM price_catalog WHERE provider_id = ? AND model = ?");
+  const hist = db.prepare(
+    `INSERT OR IGNORE INTO price_history (provider_id, model, input_per_m, output_per_m, is_free, seen_at) VALUES (?, ?, ?, ?, ?, ?)`,
+  );
+  const now = new Date().toISOString();
   return db.transaction(() => {
     for (const r of rows) {
+      const prev = last.get(r.providerId, r.model) as { input_per_m: number; output_per_m: number; is_free: number } | undefined;
+      if (!prev || prev.input_per_m !== r.inputPerM || prev.output_per_m !== r.outputPerM || prev.is_free !== (r.isFree ? 1 : 0)) {
+        hist.run(r.providerId, r.model, r.inputPerM, r.outputPerM, r.isFree ? 1 : 0, now);
+      }
       ins.run({
         provider_id: r.providerId,
         model: r.model,
