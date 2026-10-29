@@ -1,0 +1,12 @@
+{
+  "_about": "Context.dev page monitors watching the first-party pricing pages that deals.json cites. Created 29 Oct 2026, tag `tally`, semantic change detection (confidence 0.75), no webhook. Each run costs 1 Context credit (baseline included); at these cadences the six burn about 75 credits a month. `pnpm sweep` lists changes since the last sweep and names the deals.json entries that cite each page. Monitors are managed with the Context MCP (create-monitor / update-monitor / delete-monitor); keep this file in step.",
+  "created_at": "2026-10-29",
+  "monitors": [
+    { "id": "mon_1cc0664bba084c30b2107d79c5a19108", "name": "tally: Gemini API pricing", "url": "https://ai.google.dev/gemini-api/docs/pricing", "cadence": "every 2 days", "watches": ["gemini-launch-pricing-nov-2026", "gemini-free-tier-2026-10"] },
+    { "id": "mon_0270f8668b934261a01864d79927843a", "name": "tally: OpenAI API pricing", "url": "https://developers.openai.com/api/docs/pricing", "cadence": "every 2 days", "watches": [] },
+    { "id": "mon_ffc750ffce6642e4b30de486fa307932", "name": "tally: Claude API pricing", "url": "https://platform.claude.com/docs/en/about-claude/pricing", "cadence": "every 2 days", "watches": ["anthropic-batch-50", "anthropic-max-api-credits-2026-10"] },
+    { "id": "mon_7cdba43e0d3c4798ad4dba277d1f9d00", "name": "tally: OpenRouter free models", "url": "https://openrouter.ai/models?q=:free", "cadence": "every 3 days", "watches": ["openrouter-new-free-models-2026-10"] },
+    { "id": "mon_c0abf8c4acb5498db3c5e4b1a316dece", "name": "tally: Fireworks pricing", "url": "https://fireworks.ai/pricing", "cadence": "every 3 days", "watches": ["fireworks-muse-glimmer-free-until-nov-30", "fireworks-us-only-premium"] },
+    { "id": "mon_588ca1e59680424db90e84d8ba7acecf", "name": "tally: DeepSeek API pricing", "url": "https://api-docs.deepseek.com/quick_start/pricing/", "cadence": "every 3 days", "watches": ["deepseek-off-peak-50", "deepseek-search-fetch-free-until-nov-1"] }
+  ]
+}
