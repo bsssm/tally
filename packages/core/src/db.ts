@@ -91,6 +91,36 @@ CREATE TABLE IF NOT EXISTS profile (
   key TEXT PRIMARY KEY,
   value JSON
 );
+-- v2 (credits router): declared credit pools and every routing decision.
+CREATE TABLE IF NOT EXISTS credit_pools (
+  id INTEGER PRIMARY KEY,
+  provider TEXT NOT NULL,
+  amount_usd REAL NOT NULL,
+  resets_on INTEGER,
+  expires TEXT,
+  label TEXT,
+  source TEXT NOT NULL DEFAULT 'manual' CHECK (source IN ('manual','admin-api')),
+  created_at TEXT NOT NULL,
+  reconciled_spent_usd REAL,
+  reconciled_at TEXT
+);
+CREATE TABLE IF NOT EXISTS route_events (
+  id INTEGER PRIMARY KEY,
+  ts TEXT NOT NULL,
+  model TEXT NOT NULL,
+  upstream TEXT NOT NULL,
+  upstream_model TEXT,
+  reason TEXT NOT NULL,
+  input_tokens INTEGER NOT NULL DEFAULT 0,
+  output_tokens INTEGER NOT NULL DEFAULT 0,
+  cached_tokens INTEGER NOT NULL DEFAULT 0,
+  est_cost_usd REAL,
+  pool_id INTEGER,
+  job TEXT,
+  status INTEGER
+);
+CREATE INDEX IF NOT EXISTS route_events_ts ON route_events (ts);
+CREATE INDEX IF NOT EXISTS route_events_pool_ts ON route_events (pool_id, ts);
 `;
 
 export function openDb(path: string = dbPath()): Db {

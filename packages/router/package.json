@@ -1,0 +1,25 @@
+{
+  "name": "@tally/router",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Tally credits router: a loopback OpenAI/Anthropic-compatible endpoint that spends expiring credits first, then the cheapest paid route.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@tally/core": "workspace:*"
+  },
+  "files": [
+    "dist"
+  ]
+}
