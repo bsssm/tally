@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/hook.cjs\"",
+            "timeout": 5,
+            "statusMessage": "tally pace"
+          }
+        ]
+      }
+    ]
+  }
+}

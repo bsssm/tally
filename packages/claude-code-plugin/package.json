@@ -1,0 +1,9 @@
+{
+  "name": "tally-claude-code-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Claude Code plugin: Tally window pacing (statusline + UserPromptSubmit hook). Node built-ins only.",
+  "bin": { "tally-pace": "./scripts/pace.cjs" },
+  "files": [".claude-plugin", "hooks", "scripts", "skills", "README.md"]
+}

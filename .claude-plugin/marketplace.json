@@ -1,0 +1,12 @@
+{
+  "name": "tally",
+  "description": "Tally plugins for Claude Code: window pacing (statusline gauge + effort nudge).",
+  "owner": { "name": "bsssm", "url": "https://github.com/bsssm" },
+  "plugins": [
+    {
+      "name": "tally",
+      "source": "./packages/claude-code-plugin",
+      "description": "5-hour window gauge in API-equivalent dollars plus a UserPromptSubmit nudge past a threshold. Statusline is installed with `tally pace install` or /tally:pace."
+    }
+  ]
+}

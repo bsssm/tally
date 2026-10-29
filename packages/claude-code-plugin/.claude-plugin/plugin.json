@@ -1,0 +1,11 @@
+{
+  "name": "tally",
+  "version": "0.1.0",
+  "description": "Window pacing for Claude Code: a 5-hour window gauge in dollars and a hook that asks the model to spend less once the window is nearly used.",
+  "author": { "name": "bsssm" },
+  "homepage": "https://github.com/bsssm/tally",
+  "repository": "https://github.com/bsssm/tally",
+  "license": "MIT",
+  "keywords": ["claude-code", "usage", "rate-limit", "statusline", "pacing", "tally"],
+  "hooks": "./hooks/hooks.json"
+}
