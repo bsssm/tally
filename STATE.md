@@ -1,44 +1,42 @@
-# Tally — state of play (saved 29 Oct 2026)
+# Tally — state of play (saved 29 Oct 2026, evening)
 
 Resume prompt (paste into Claude Code from any directory):
 
-> Resume Tally. Read ~/GitHub/tally/STATE.md and ~/knowledge/personal/tally-value.md, then do the next unchecked item in "To publish" unless I say otherwise. Don't re-explain the product.
+> Resume Tally. Read ~/GitHub/tally/STATE.md and ~/knowledge/personal/tally-plan.md, then do the next unchecked item unless I say otherwise. Don't re-explain the product.
 
-## What exists (commits b83c2c3, db1f70f)
+## What exists (main, pushed to the private repo github.com/bsssm/tally)
 
-- `tally` (default) → wallet screen: local Claude Code logs priced at API rates, connected providers, plan verdict with levers, top deals.
-- `tally deals` → ranked feed (credits, free models, promo pricing, price changes); `--all` shows missed ones.
-- `tally profile` → plan + stage; `tally connect|sync|providers|disconnect` → OpenRouter (Management key) ledger.
-- Core: encrypted key store (macOS Keychain / env / passphrase), SQLite ledger with price history, OpenRouter adapter, deals seed `packages/core/data/deals.json`, Anthropic price table. 23 tests.
-- Bassam's live numbers 29 Oct: $1,601 API-equivalent in 30 days (72% Fable 5.1), 8.0x on Max 20x; $0.52 on OpenRouter.
+- `npx tallyai` (package `tallyai` 0.1.0, not yet published): wallet screen from Claude Code, Codex CLI, Cursor and Gemini CLI local logs priced at API rates, OpenRouter ledger, plan verdict with levers, top deals. Clean empty state, no Keychain or passphrase prompt until the first `connect`.
+- `tally deals [--all]`: 16 verified + 1 unconfirmed deals, expired ones with a missed line. Six Context.dev page monitors (`packages/core/data/monitors.json`, about 75 credits a month); `pnpm sweep` lists changes.
+- `tally route`: credits router on 127.0.0.1:7411 (`packages/router`). OpenAI and Anthropic shapes, streaming, pools (`route pool add anthropic --usd 200 --resets 7`), `route status`, `route jobs`. Reconciles from the Admin API when `tally connect anthropic --admin` is stored.
+- `tally pace [install|uninstall]`: Claude Code statusline + UserPromptSubmit hook (`packages/claude-code-plugin`), also installable as a plugin from the repo root marketplace. Rendered here: `tally 5h 64% $90.4 ↻1h24 · today $103`.
+- Landing page `packages/site` (static, Netlify site `tally-ai-wallet`, draft deploys only).
+- 83 tests, typecheck clean, CI workflow on ubuntu + macOS, node 20 + 22. `scripts/fresh-machine.sh` passes in under 10 s.
 
-## In progress / waiting on Bassam
+## Waiting on Bassam (also Todoist, 30 Oct 10am)
 
-- [ ] **Claim the $200/month Max API credits**: claude.ai → Settings → Billing → "Link organization". Unclaimed as of 29 Oct. Say "link it" and Claude clicks it, or do it yourself.
-- [ ] **Decide the 20 Nov downgrade to Max 5x** (scheduled). At 8x utilization 5x halves the window and credits drop to $100. "Renew current Max plan" button is on the same page.
-- [ ] Provider board items (Todoist task 29 Oct 10am): log in to HF + OpenRouter + `wrangler login`, then say "go".
-- [ ] Tally M2 per the original spec (OpenAI + Anthropic API adapters, ±1% check) — parked behind the publish list.
+- [ ] Name: keep Tally / `tallyai`, or rename (9 live TALLY marks in USPTO classes 9 and 42; every tally domain taken; free: aiwallet.sh, tallied.dev, purse.dev $89).
+- [ ] `npm login` (type `! npm login` in Claude Code).
+- [ ] Claim the $200/month API credits: say "link it".
+- [ ] Anthropic API key + admin key → `tally connect anthropic` / `--admin`. Until then the router's credit path is untested with real credits.
+- [ ] Decide the 20 Nov Max 5x downgrade.
+- [ ] Domain if renaming; otherwise tally.bassame.com.
+- [ ] Say "publish": `npm publish` + repo public + Netlify prod are the irreversible steps.
 
-## To publish and go live (`npx <name>` + GitHub)
+## Next for Claude, in order
 
-- [x] Monorepo, encrypted keys, OpenRouter adapter, tests (M1)
-- [x] Wallet screen, verdict, deal feed, profile
-- [x] Local commits on main
-- [ ] Pick the npm name. `tally`, `tally-ai`, `tally-cli` are taken. Available: `tallyai`, `aitally`, `tally-wallet`. (Bassam's call)
-- [ ] Bundle `@tally/core` into the CLI (tsup) so `npx <name>` works without the workspace; ship `data/` in the package
-- [ ] LICENSE (MIT) + package metadata (repository, homepage, keywords, `engines`)
-- [ ] README rewrite: wallet-first quickstart, what is read locally, what never leaves the machine
-- [ ] GitHub remote under `bsssm` (gh is logged in) + push; CI running `pnpm test`
-- [ ] First-run UX for strangers: no Keychain prompt until a key is stored; passphrase path tested interactively; `tally` with zero logs shows a clean empty state
-- [ ] Readers for Codex, Cursor, Gemini CLI (ccusage parity; MIT parsers can be adapted) — optional for v0.1
-- [ ] Verify every `asserted` deal on the provider's own page before release; drop or label what fails
-- [ ] Deal sweep automation: Context.dev monitors on pricing pages + a weekly Exa/Parallel sweep → PR to deals.json
-- [ ] Fresh-machine acceptance test (spec §13): `npx <name>` → wallet in under 60s with no key
-- [ ] `npm publish` (dry run first), then announce: X post with the wallet screenshot, Show HN
-- [ ] Later: statusline/menu-bar gauge, monthly share card, dashboard (M4), proxy mode
+- [ ] Landing page round 2 (phone overflow, reveal-on-scroll content, real router output) and a prod deploy once the name is settled.
+- [ ] Dashboard Tally tab (wallet, deals, router /status, pace) — in progress 29 Oct.
+- [ ] Share card (`tally card`: monthly PNG/SVG of the wallet for X). First thing after publish; it is the acquisition loop.
+- [ ] Announce: X post with the wallet screenshot, Show HN, ccusage comparison in the README.
+- [ ] M2 adapters: Anthropic + OpenAI usage sync (±1% check against their dashboards); `tally sync` currently skips those keys.
+- [ ] Credit-claiming agent (fills Anthropic / Google / AWS / Together / Cloudflare forms from the profile).
+- [ ] Team layer and provider placements later.
 
 ## Where the thinking lives
 
-- `~/knowledge/personal/tally-value.md` — value quantification, start/stay analysis, trends, innovation list.
-- `~/knowledge/agent-memory/tally.md` — project memory (loaded every session).
-- `SPEC.md` — the original spec; milestones reordered by the reposition.
+- `~/knowledge/personal/tally-plan.md` — relaunch plan, gaps, unblocks (29 Oct).
+- `~/knowledge/personal/tally-value.md` — value quantification and the innovation list.
+- `~/knowledge/agent-memory/tally.md` — project memory.
+- `packages/claude-code-plugin/RESEARCH.md` — what Claude Code hooks and statusline can and cannot do.
+- `packages/core/src/local/FORMATS.md` — on-disk formats of the four agents.
