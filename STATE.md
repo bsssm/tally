@@ -14,15 +14,21 @@ Resume prompt (paste into Claude Code from any directory):
 - Landing page `packages/site` (static, Netlify site `tally-ai-wallet`, draft deploys only).
 - 95 tests, typecheck clean, CI workflow on ubuntu + macOS, node 20 + 22. `scripts/fresh-machine.sh` passes in under 10 s.
 
+## Done 29 Oct evening on his "publish"
+
+- [x] Repo public: github.com/bsssm/tally. Plugin: `/plugin marketplace add bsssm/tally`.
+- [x] Site live: https://tally-ai-wallet.netlify.app (Netlify site id d3596cd1-b2c2-408b-86c6-5a0b4d4fe3e9, deploy from packages/site with `--prod --dir=. --site <id> --json`).
+- [x] $200/month API credits were already linked (next credit 21 Nov); profile marked claimed; router pool #1 added (resets on the 21st).
+- [x] npm login as bsssm (needs a real Terminal: `npm login` crashes under Claude's shell).
+- [ ] `npm publish --access public` from packages/cli: 403 until 2FA is enabled on the npm account (npmjs.com/settings/bsssm/tfa). Then rerun in Terminal.app.
+
 ## Waiting on Bassam (also Todoist, 30 Oct 10am)
 
 - [ ] Name: keep Tally / `tallyai`, or rename (9 live TALLY marks in USPTO classes 9 and 42; every tally domain taken; free: aiwallet.sh, tallied.dev, purse.dev $89).
-- [ ] `npm login` (type `! npm login` in Claude Code).
-- [ ] Claim the $200/month API credits: say "link it".
+- [ ] Enable 2FA on npm, then the publish goes through.
 - [ ] Anthropic API key + admin key → `tally connect anthropic` / `--admin`. Until then the router's credit path is untested with real credits.
-- [ ] Decide the 20 Nov Max 5x downgrade.
-- [ ] Domain if renaming; otherwise tally.bassame.com.
-- [ ] Say "publish": `npm publish` + repo public + Netlify prod are the irreversible steps.
+- [x] Downgrade to Max 5x stays (20 Nov). Flip `tally profile --plan max5` and the pool to $100 after that date.
+- [ ] Domain: undecided; he owns pobopay.com and agntpay.com; tally.bassame.com is the free option.
 
 ## Next for Claude, in order
 
